@@ -1,4 +1,4 @@
-const Subcategory = require("../models/subcategory");
+const Subcategory = require("../models/Subcategory");
 const mongoose = require("mongoose");
 const multer = require("multer");
 const path = require("path");
