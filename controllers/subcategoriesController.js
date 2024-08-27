@@ -82,6 +82,7 @@ module.exports = {
 
   getAllSubcategories: async (req, res) => {
     try {
+      console.log("Fetching subcategories...");
       const subcategories = await Subcategory.find();
       res.json(subcategories);
     } catch (error) {
