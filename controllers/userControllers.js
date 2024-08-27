@@ -60,6 +60,7 @@ require("dotenv").config();
           res.status(500).json({ message: "Error registrando el usuario" });
         }
       },
+      
       loginUser: async (req, res) => {
         try {
           const { email, password } = req.body;
