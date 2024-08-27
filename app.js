@@ -27,6 +27,7 @@ dotenv.config();
 mongoose.connect(process.env.MONGO_URL, {
     writeConcern: {
         w: "majority",
+        useNewUrlParser: true, useUnifiedTopology: true 
     },
 }).then(() => console.log("Base de Datos conectada"))
   .catch((err) => console.log(err));
