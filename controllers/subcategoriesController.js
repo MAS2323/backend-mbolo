@@ -82,8 +82,14 @@ module.exports = {
 
   getAllSubcategories: async (req, res) => {
     try {
-      console.log("Fetching subcategories...");
-      const subcategories = await Subcategory.find();
+      const subcategories = await Subcategory.find(); // Use .lean() to get plain JavaScript objects
+      subcategories.forEach((subcategory, index) => {
+        try {
+          JSON.stringify(subcategory);
+        } catch (err) {
+          console.error(`Error serializing subcategory at index ${index}:`, err);
+        }
+      });
       res.json(subcategories);
     } catch (error) {
       console.error("Error fetching subcategories:", error);
