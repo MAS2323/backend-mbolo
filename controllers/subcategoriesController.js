@@ -82,11 +82,11 @@ module.exports = {
 
   getAllSubcategories: async (req, res) => {
     try {
-      const subcategories = await Subcategory.find();
+      const subcategories = await Subcategory.find(); // Adjust this query to match your logic
       res.json(subcategories);
     } catch (error) {
       console.error("Error fetching subcategories:", error);
-      res.status(500).json({ error: "Failed to fetch subcategories" });
+      res.status(500).json({ message: "Server error while fetching subcategories" });
     }
   },
 
