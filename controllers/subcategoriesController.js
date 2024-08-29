@@ -82,7 +82,7 @@ module.exports = {
 
   getAllSubcategories: async (req, res) => {
     try {
-      const subcategories = await Subcategory.find(); // Use .lean() to get plain JavaScript objects
+      const subcategories = await Subcategory.find().lean(); // Use .lean() to get plain JavaScript objects
       subcategories.forEach((subcategory, index) => {
         try {
           JSON.stringify(subcategory);

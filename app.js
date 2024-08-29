@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const cors = require('cors');
 const bodyParser = require("body-parser");
-
+const multer = require('multer');
 const bannerRoutes = require("./routes/banner");
 const productRouter = require("./routes/products.routes");
 const userRouter = require("./routes/user");
@@ -23,6 +23,7 @@ const subcategoriesRouter = require("./routes/subcategories");
 // Cargar configuraciones desde .env
 dotenv.config();
 
+const upload = multer({dest: 'uploads/'});
 // Conectar a la base de datos
 mongoose.connect(process.env.MONGO_URL, {
     writeConcern: {
