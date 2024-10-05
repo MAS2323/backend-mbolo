@@ -24,7 +24,7 @@ const upload = multer({dest: 'uploads/'});
 // Conectar a la base de datos
 mongoose.connect(process.env.MONGO_URL, {
     writeConcern: {
-        
+      w: "majority",
     },
 }).then(() => console.log("Base de Datos conectada"))
   .catch((err) => console.log(err));
