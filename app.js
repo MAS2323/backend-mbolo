@@ -2,9 +2,6 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const passport = require("passport");
-const localStrategy = require('passport-local').Strategy;
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const cors = require('cors');
 const bodyParser = require("body-parser");
@@ -27,8 +24,7 @@ const upload = multer({dest: 'uploads/'});
 // Conectar a la base de datos
 mongoose.connect(process.env.MONGO_URL, {
     writeConcern: {
-        w: "majority",
-        useNewUrlParser: true, useUnifiedTopology: true 
+        
     },
 }).then(() => console.log("Base de Datos conectada"))
   .catch((err) => console.log(err));
@@ -40,6 +36,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use('/uploads', express.static('uploads'));
 // Inicializar Passport
 app.use(passport.initialize());
 

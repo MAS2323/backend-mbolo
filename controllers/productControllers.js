@@ -15,14 +15,13 @@ module.exports = {
         title,
         supplier,
         price,
-        imageUrl,
         product_location,
         description,
         userId,
         phoneNumber,
         whatsapp,
       } = req.body;
-
+      const imageUrl = `/uploads/${req.file.filename}`;
       // Verifica que el usuario exista
       const user = await User.findById(userId);
       if (!user) {
