@@ -20,16 +20,16 @@ module.exports = {
         description,
         userId,
         phoneNumber,
-        imageUrl,
         whatsapp,
+        images, // Recibe el array de URLs de imágenes desde el frontend
       } = req.body;
 
-      // Verificar que el userId esté presente en el cuerpo de la solicitud
+      // Verificar que el userId esté presente
       if (!userId) {
         return res.status(400).json({ error: "userId is required" });
       }
 
-      // Verificar que el userId tenga el formato correcto de ObjectId
+      // Verificar que el userId tenga el formato correcto
       if (!mongoose.Types.ObjectId.isValid(userId)) {
         return res.status(400).json({ error: "Invalid userId format" });
       }
@@ -45,12 +45,12 @@ module.exports = {
         title,
         supplier,
         price,
-        images: imageUrl,
         product_location,
         description,
         phoneNumber,
         whatsapp,
-        user: userId, // Asociar el producto con el usuario
+        images: images, // Guarda las URLs de las imágenes en la base de datos
+        user: userId, // Relaciona el producto con el usuario
       });
 
       // Guardar el producto en la base de datos
@@ -63,10 +63,10 @@ module.exports = {
 
       res.status(201).json(savedProduct);
     } catch (err) {
-      console.error("Error al crear el producto:", err); // Mostrar detalles del error en la consola
+      console.error("Error al crear el producto:", err);
       res
         .status(500)
-        .json({ error: "Failed to create the product", details: err.message }); // Enviar detalles del error en la respuesta
+        .json({ error: "Failed to create the product", details: err.message });
     }
   },
   getAllProduct: async (req, res) => {
