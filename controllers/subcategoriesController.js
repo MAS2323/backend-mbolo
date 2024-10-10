@@ -2,8 +2,6 @@ const Subcategory = require("../models/Subcategory");
 const mongoose = require("mongoose");
 const path = require("path");
 
-// Configuración de Multer
-
 module.exports = {
   getSubcategoriesByCategory: async (req, res) => {
     const { categoryId } = req.params;
@@ -144,4 +142,3 @@ module.exports = {
   },
 };
 
-module.exports.upload = upload;
