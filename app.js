@@ -19,8 +19,6 @@ const subcategoriesRouter = require("./routes/subcategories");
 
 // Cargar configuraciones desde .env
 dotenv.config();
-
-const upload = multer({dest: 'uploads/'});
 // Conectar a la base de datos
 mongoose.connect(process.env.MONGO_URL, {
     writeConcern: {
@@ -34,10 +32,10 @@ app.use(cors());
 
 // Configurar body-parser
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.json()); 
 
-app.use('/uploads', express.static('uploads'));
-// Inicializar Passport
+app.use('/uploads', express.static(path.resolve('uploads')));
+// Inicializar Passportx`
 app.use(passport.initialize());
 
 // Limitar tamaño de JSON y URL

@@ -21,35 +21,39 @@ module.exports = {
         phoneNumber,
         whatsapp,
       } = req.body;
-      const imageUrl = `/uploads/${req.file.filename}`;
+  
       // Verifica que el usuario exista
       const user = await User.findById(userId);
       if (!user) {
         return res.status(404).json({ error: "User not found" });
       }
-
+  
+      // Crea un nuevo producto con la información recibida
       const newProduct = new Product({
         title,
         supplier,
         price,
-        imageUrl,
         product_location,
         description,
         phoneNumber,
         whatsapp,
         user: userId,
       });
-
+  
+      // Guarda el nuevo producto en la base de datos
       const savedProduct = await newProduct.save();
-
+  
       // Añadir el producto al array de productos del usuario
       await User.findByIdAndUpdate(userId, {
         $push: { products: savedProduct._id },
       });
-
+  
+      // Responde con el producto creado
       res.status(201).json(savedProduct);
     } catch (err) {
-      res.status(500).json({ error: err.message });
+      // Manejo de errores
+      console.error("Error creating product:", err);
+      res.status(500).json({ error: "Failed to create the product" });
     }
   },
   getAllProduct: async (req, res) => {
