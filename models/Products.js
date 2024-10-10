@@ -17,7 +17,6 @@ const ProductSchema = new mongoose.Schema(
     imageUrl: {
       type: String,
       required: true,
-      
     },
     product_location: {
       type: String,
@@ -29,7 +28,11 @@ const ProductSchema = new mongoose.Schema(
     },
     phoneNumber: { type: String, required: true },
     whatsapp: { type: String, required: true },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     favorites: [
       {
         type: mongoose.Schema.Types.ObjectId,
