@@ -45,7 +45,7 @@ module.exports = {
         title,
         supplier,
         price,
-        imageUrl,
+        images: imageUrl,
         product_location,
         description,
         phoneNumber,
