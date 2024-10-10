@@ -1,19 +1,8 @@
 const Subcategory = require("../models/Subcategory");
 const mongoose = require("mongoose");
-const multer = require("multer");
 const path = require("path");
 
 // Configuración de Multer
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/"); // Directorio donde se almacenarán los archivos subidos
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname)); // Nombre único del archivo
-  },
-});
-
-const upload = multer({ storage: storage });
 
 module.exports = {
   getSubcategoriesByCategory: async (req, res) => {
