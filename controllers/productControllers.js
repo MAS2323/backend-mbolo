@@ -1,5 +1,6 @@
 const Product = require("../models/Products");
 const User = require("../models/User");
+const mongoose = require("mongoose");
 
 module.exports = {
   createProduct: async (req, res) => {
@@ -19,41 +20,53 @@ module.exports = {
         description,
         userId,
         phoneNumber,
+        imageUrl,
         whatsapp,
       } = req.body;
-  
-      // Verifica que el usuario exista
+
+      // Verificar que el userId esté presente en el cuerpo de la solicitud
+      if (!userId) {
+        return res.status(400).json({ error: "userId is required" });
+      }
+
+      // Verificar que el userId tenga el formato correcto de ObjectId
+      if (!mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(400).json({ error: "Invalid userId format" });
+      }
+
+      // Verificar que el usuario exista
       const user = await User.findById(userId);
       if (!user) {
         return res.status(404).json({ error: "User not found" });
       }
-  
-      // Crea un nuevo producto con la información recibida
+
+      // Crear el nuevo producto
       const newProduct = new Product({
         title,
         supplier,
         price,
+        imageUrl,
         product_location,
         description,
         phoneNumber,
         whatsapp,
-        user: userId,
+        user: userId, // Asociar el producto con el usuario
       });
-  
-      // Guarda el nuevo producto en la base de datos
+
+      // Guardar el producto en la base de datos
       const savedProduct = await newProduct.save();
-  
+
       // Añadir el producto al array de productos del usuario
       await User.findByIdAndUpdate(userId, {
         $push: { products: savedProduct._id },
       });
-  
-      // Responde con el producto creado
+
       res.status(201).json(savedProduct);
     } catch (err) {
-      // Manejo de errores
-      console.error("Error creating product:", err);
-      res.status(500).json({ error: "Failed to create the product" });
+      console.error("Error al crear el producto:", err); // Mostrar detalles del error en la consola
+      res
+        .status(500)
+        .json({ error: "Failed to create the product", details: err.message }); // Enviar detalles del error en la respuesta
     }
   },
   getAllProduct: async (req, res) => {
